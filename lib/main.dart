@@ -1,6 +1,7 @@
 import 'package:fix/core/services/bloc_observer.dart';
 import 'package:fix/core/services/dio_helper.dart';
 import 'package:fix/core/services/services_locator.dart';
+import 'package:fix/features/login_feature/presentation/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Text(''),
+      home: LoginView(),
     );
   }
 }
