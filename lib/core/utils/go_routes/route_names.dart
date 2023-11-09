@@ -1,3 +1,4 @@
+import 'package:fix/feature/presentation/view/register_view.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -23,10 +24,10 @@ abstract class AppRouter {
       //   path: kLogin,
       //   builder: (context, state) =>   const LoginView(),
       // ),
-      // GoRoute(
-      //   path: kRegister,
-      //   builder: (context, state) =>   const RegisterView(),
-      // ),
+      GoRoute(
+        path: '/',
+        builder: (context, state) =>   const RegisterView(),
+      ),
 
     ],
   );
