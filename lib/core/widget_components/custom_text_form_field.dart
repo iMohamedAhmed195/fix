@@ -1,5 +1,6 @@
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
@@ -22,7 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
+      padding:  EdgeInsets.symmetric(horizontal: 20.0.w,vertical: 15.h),
       child: TextFormField(
         validator: function,
         decoration: InputDecoration(
