@@ -1,4 +1,4 @@
-import 'package:fix/feature/presentation/view/register_view.dart';
+import 'package:fix/feature/register_feature/presentation/view/register_view.dart';
 import 'package:go_router/go_router.dart';
 
 
