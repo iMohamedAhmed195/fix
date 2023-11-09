@@ -18,15 +18,12 @@ class ImageAndTextSection extends StatelessWidget {
         //     child: Image.asset(AssetsData.logIn,)
         // ),
 
-        Padding(
-          padding:  EdgeInsets.only(top: 80.0.h),
-          child: Text(
-            namePage,
-            style:  TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 28.sp,
-                color: Styles.kPrimaryColor
-            ),
+        Text(
+          namePage,
+          style:  TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 28.sp,
+              color: Styles.kPrimaryColor
           ),
         )
       ],
