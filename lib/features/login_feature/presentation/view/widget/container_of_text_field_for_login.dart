@@ -1,0 +1,92 @@
+import 'package:fix/core/services/services_locator.dart';
+import 'package:fix/core/services/show_toast.dart';
+import 'package:fix/core/utils/constants/colors.dart';
+import 'package:fix/core/utils/constants/strings.dart';
+import 'package:fix/core/widget_components/custom_button.dart';
+import 'package:fix/core/widget_components/custom_text_form_field.dart';
+import 'package:fix/features/login_feature/presentation/controller/login_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+
+class ContainerOfTextField extends StatelessWidget {
+  const ContainerOfTextField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<LoginCubit>(),
+      child: BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if(state is LoginSuccessState){
+            showToast(text: 'Login Success', state: ToastState.success);
+            Strings.token = state.loginEntity.token;
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => LayoutView(
+            //           imageProfile: state.loginModel.data!.user!.image!,
+            //           nameProfile: state.loginModel.data!.user!.name!,
+            //           emailProfile: state.loginModel.data!.user!.email!,
+            //         )));
+          }else if(state is LoginErrorState){
+            showToast(text: 'Login Error', state: ToastState.error);
+          }
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Styles.kPrimaryColor, width: 3)),
+              child: Form(
+                key: sl<LoginCubit>().formKey,
+                child: Column(
+                  children: [
+                    CustomTextFormField(
+                      hintText: 'Email',
+                      function: (value) {
+                        if (value!.isEmpty) {
+                          return 'enter your email';
+                        }
+                        return null;
+                      },
+                      iconPrefix: Icons.email,
+                      controller: sl<LoginCubit>().emailController,
+                      obSecure: false,
+                      inputType: TextInputType.text,
+                    ),
+                    CustomTextFormField(
+                      hintText: 'Password',
+                      function: (value) {
+                        if (value!.isEmpty) {
+                          return 'enter your password';
+                        }
+                        return null;
+                      },
+                      iconPrefix: Icons.lock,
+                      controller: sl<LoginCubit>().passwordController,
+                      obSecure: true,
+                      inputType: TextInputType.visiblePassword,
+                      iconSuffix: Icons.remove_red_eye,
+                    ),
+                    CustomButton(
+                      buttonName: 'Login',
+                      function: () {
+                        if(sl<LoginCubit>().formKey.currentState!.validate()){
+                          sl<LoginCubit>().logInApp();
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

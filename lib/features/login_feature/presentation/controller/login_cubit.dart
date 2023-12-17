@@ -1,3 +1,4 @@
+
 import 'package:fix/features/login_feature/domain/entities/login_entity.dart';
 import 'package:fix/features/login_feature/domain/use_cases/login_use_case.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,12 +21,11 @@ class LoginCubit extends Cubit<LoginState> {
 
    result.fold(
            (error){
-             print(error.errorMessage);
              emit(LoginErrorState());
            },
            (loginEntity) {
              this.loginEntity=loginEntity;
-             emit(LoginSuccessState());
+             emit(LoginSuccessState(loginEntity));
            },
    );
   }

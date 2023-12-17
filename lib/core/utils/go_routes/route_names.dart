@@ -1,3 +1,4 @@
+import 'package:fix/features/login_feature/presentation/view/login_view.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -11,10 +12,10 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      // GoRoute(
-      //   path: '/',
-      //   builder: (context, state) =>   const SplashView(),
-      // ),
+      GoRoute(
+        path: '/',
+        builder: (context, state) =>   const LoginView(),
+      ),
       // GoRoute(
       //   path: kOnBoarding,
       //   builder: (context, state) =>   const OnBoardingScreen(),

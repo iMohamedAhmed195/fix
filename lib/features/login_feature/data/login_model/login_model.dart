@@ -16,9 +16,9 @@ class LoginModel extends LoginEntity {
       LoginModel(
           status : json['status'],
           isPaid:json['data']['isPaid'],
-          name:json['status']['name'],
-          photo:json['status']['photo'],
-          role:json['status']['role'] == 'customer'  ?  UserType.customer : UserType.worker,
+          name:json['data']['name'],
+          photo:json['data']['photo'],
+          role:json['data']['role'] == 'customer'  ?  UserType.customer : UserType.worker,
           token:json['token']
       );
 
