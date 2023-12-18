@@ -1,6 +1,8 @@
 import 'dart:io';
 
-import 'package:fix/core/utils/enums.dart';
+import 'package:fix/core/utils/enums/craft_type.dart';
+import 'package:fix/core/utils/enums/user_type.dart';
+import 'package:fix/feature/register_feature/domain/use_case/register_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,54 +10,24 @@ import 'package:image_picker/image_picker.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitial());
+  RegisterUseCase registerUseCase;
+  RegisterCubit(this.registerUseCase) : super(RegisterInitial());
 
-  static RegisterCubit get(context) => BlocProvider.of(context);
-
-
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var confirmPasswordController = TextEditingController();
-  var phoneController = TextEditingController();
-  var dayController = TextEditingController();
-  var monthController = TextEditingController();
-  var yearController = TextEditingController();
-  var cityController = TextEditingController();
-  var Nidcontroller = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final dateController = TextEditingController();
+  final cityController = TextEditingController();
+  final addressController = TextEditingController();
+  final nIdController = TextEditingController();
 
   var registerKey = GlobalKey<FormState>();
 
-
-  final List<String> craftList = [
-    "Choose Your Craft",
-    "Metalworking",
-    "Jewelry",
-    "Pottery",
-    "Sculpture",
-    "Woodworking",
-    "Cabinet making",
-    "Marquetry",
-    "Lacquerware",
-    "Wood burning",
-    "Wood turningx",
-    "Balloon animal",
-    "Beadwork",
-    "Doll making",
-    "Dollhouse construction and furnishing",
-    "Egg decorating",
-    "Etching",
-    "Glassblowing",
-    "Lapidary",
-    "Mosaics",
-    "Stained glass",
-    "Toy making",
-    "Polymer clay",
-  ];
-
   final ImagePicker picker = ImagePicker();
 
-  File? profileImage;
+  File profileImage = File('assets/images/defaultUser.png');
   XFile? pickedFile;
 
   Future<void> getImageProfileFromGallery() async {
@@ -82,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  File? nIDImage;
+  late File nIDImage;
   XFile? nIDFile;
 
   Future<void> getImageNIDFromGallery() async {
@@ -97,13 +69,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  File? nIDImageC;
-
   Future<void> getImageNIDFromCamera() async {
     nIDFile = await picker.pickImage(source: ImageSource.camera);
 
     if (nIDFile != null) {
-      nIDImageC = File(nIDFile!.path);
+      nIDImage = File(nIDFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
       print('no image selceted');
@@ -113,46 +83,89 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   String phone = "";
 
-  void changePhone(String text){
+  void changePhone(String text) {
     phone = text;
     emit(ChangePhoneState());
   }
 
-
-  String type = "";
-
-  bool isWorker = false;
-
-  String optionValue = "";
+  UserType? userType;
+  CraftType? craftType;
 
   bool isCheckedAgree = false;
 
-  void selectValue(String value) {
-    type = value;
-    if (type == "worker") {
-      isWorker = true;
-    } else {
-      isWorker = false;
-    }
-    emit(UserTypeOptionState());
+  void selectValue({required UserType? userType}) {
+    this.userType = userType;
+    emit(ChangeUserTypeOptionState());
   }
 
-  void changeOption(String selectLevel) async {
-    optionValue = selectLevel;
-
-    emit(ChangeOptionState());
-  }
-
-  bool isWorkerSelected(UserTypes option) {
-    if (option == UserTypes.Worker) {
-      return isWorker = true;
-    } else {
-      return isWorker = false;
-    }
+  void changeCraftType({required CraftType? craftType}) async {
+    this.craftType = craftType;
+    emit(ChangeCraftTypeOptionState());
   }
 
   void changeAgreementCheck() {
     isCheckedAgree = !isCheckedAgree;
     emit(AgreementStateDone());
+  }
+
+  void fetchRegister() async {
+    emit(RegisterLoadingState());
+    final result = await registerUseCase.call(RegisterParameters(
+        email: emailController.text,
+        role: userType!.value,
+        birthDate: dateController.text,
+        city: cityController.text,
+        nationalId: nIdController.text,
+        photo: profileImageCa ?? profileImage,
+        idPhoto: nIDImage,
+        address: addressController.text,
+        name: nameController.text,
+        password: passwordController.text,
+        confirmPassword: confirmPasswordController.text,
+        phone: phone));
+
+    result.fold(
+        (leftError) =>
+            emit(RegisterErrorState(errorMessage: leftError.message)),
+        (rightRegisterEntity) => emit(RegisterSuccessState()));
+  }
+
+  bool isValidEmail() {
+    final emailRegex =
+        RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return emailRegex.hasMatch(emailController.text);
+  }
+
+  bool checkPassword() {
+    if (confirmPasswordController.text == passwordController.text) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> selectDate(BuildContext context) async {
+    emit(SelectDateLoadingState());
+    await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    ).then((value) {
+      if (value != null) {
+        dateController.text = _formatDate(value);
+        emit(SelectDateSuccessState());
+      }
+    }).catchError((onError) {
+      emit(SelectDateErrorState());
+    });
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.year}-${date.month}-${date.day}';
+  }
+
+  DateTime _parseDate(String dateString) {
+    return DateTime.parse(dateString);
   }
 }

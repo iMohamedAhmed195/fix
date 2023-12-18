@@ -4,18 +4,30 @@ part of 'register_cubit.dart';
 abstract class RegisterState {}
 
 class RegisterInitial extends RegisterState {}
+
 class ChangePhoneState extends RegisterState {}
-class RegisterLoading extends RegisterState {}
-class RegisterSuccess extends RegisterState {
 
+class RegisterLoadingState extends RegisterState {}
+
+class RegisterSuccessState extends RegisterState {}
+
+class RegisterErrorState extends RegisterState {
+  final String errorMessage;
+  RegisterErrorState({required this.errorMessage});
 }
 
-class RegisterError extends RegisterState {
-
-}
 class ProfileImageSuccessStates extends RegisterState {}
+
+class SelectDateErrorState extends RegisterState {}
+
+class SelectDateSuccessState extends RegisterState {}
+
+class SelectDateLoadingState extends RegisterState {}
+
 class ProfileImageErrorStates extends RegisterState {}
 
-class UserTypeOptionState extends RegisterState {}
-class ChangeOptionState extends RegisterState {}
+class ChangeUserTypeOptionState extends RegisterState {}
+
+class ChangeCraftTypeOptionState extends RegisterState {}
+
 class AgreementStateDone extends RegisterState {}

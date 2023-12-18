@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
       this.function,
       required this.controller,
       required this.obSecure,
-      required this.inputType,this.iconSuffix,this.sufFunction});
+      required this.inputType,this.iconSuffix,this.sufFunction,});
 
   final String hintText;
   final IconData iconPrefix;

@@ -3,19 +3,23 @@ import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/feature/register_feature/presentation/controller/register_cubit.dart';
-import 'package:fix/feature/register_feature/presentation/view/widget/address_and_id_section.dart';
-import 'package:fix/feature/register_feature/presentation/view/widget/choose_role_and_describtion_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/address_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/choose_role_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/city_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/confirm_password_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/description_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/email_section.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/image_national_id.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/image_profile_section.dart';
-import 'package:fix/feature/register_feature/presentation/view/widget/name_and_email_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/name_section.dart';
+import 'package:fix/feature/register_feature/presentation/view/widget/national_id_section.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/phone_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'birthday_section.dart';
-import 'password_and_confirm_section.dart';
-
+import 'password_section.dart';
 
 class ContainerOfTextFieldForRegister extends StatelessWidget {
   const ContainerOfTextFieldForRegister({super.key});
@@ -26,24 +30,15 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
       create: (context) => sl<RegisterCubit>(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state is RegisterSuccess) {
+          if (state is RegisterSuccessState) {
             showToast(text: 'Register Success', state: ToastState.success);
-            // Strings.token = state.registerModel.data!.token!;
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => HomeView(
-            //           imageProfile: state.registerModel.data!.user!.image!,
-            //           nameProfile: state.registerModel.data!.user!.name!,
-            //           emailProfile:state.registerModel.data!.user!.email!,
-            //         )));
-          } else if (state is RegisterError) {
-            showToast(text: 'Register Error', state: ToastState.error);
+          } else if (state is RegisterErrorState) {
+            showToast(text: state.errorMessage, state: ToastState.error);
           }
         },
         builder: (context, state) {
           return Padding(
-            padding:  EdgeInsets.all(15.0.r),
+            padding: EdgeInsets.all(15.0.r),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -54,13 +49,18 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
                 child: Column(
                   children: [
                     const ImageProfileSection(),
-                    const NameAndEmailSection(),
-                    const PasswordAndConfirmSection(),
+                    const NameSection(),
+                    const EmailSection(),
+                    const PasswordSection(),
+                    const ConfirmPasswordSection(),
                     const PhoneSection(),
                     const BirthDateSection(),
-                    const AddressAndNationalIdSection(),
+                    const CitySectionComponent(),
+                    const AddressSection(),
+                    const NationalIdSection(),
                     const ImageNationalIdSection(),
-                    const RoleAndDescriptionSection(),
+                    const ChooseRoleSection(),
+                    const ChooseCraftSection(),
                     CustomButton(
                       buttonName: 'Register',
                       function: () {
@@ -68,7 +68,7 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
                             .registerKey
                             .currentState!
                             .validate()) {
-                          // sl<RegisterCubit>().registerInApp();
+                          sl<RegisterCubit>().fetchRegister();
                         }
                       },
                     )
@@ -82,5 +82,3 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
     );
   }
 }
-
-
