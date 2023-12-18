@@ -21,9 +21,11 @@ class ChooseRoleSection extends StatelessWidget {
             children: [
               Expanded(
                 child: RadioListTile<UserType>(
+
                   value: UserType.worker,
                   groupValue: sl<RegisterCubit>().userType,
                   title: Text(
+
                     'Worker',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
