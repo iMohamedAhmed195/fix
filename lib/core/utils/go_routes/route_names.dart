@@ -13,7 +13,7 @@ abstract class AppRouter {
     routes: [
       // GoRoute(
       //   path: '/',
-      //   builder: (context, state) =>   const SplashView(),
+      //   builder: (context, state) =>   const NewPasswordView(),
       // ),
       // GoRoute(
       //   path: kOnBoarding,
