@@ -13,6 +13,7 @@ class ImageAndTextSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+
         Text(
           namePage,
           style:  TextStyle(
