@@ -1,4 +1,3 @@
-import 'package:fix/feature/register_feature/presentation/view/register_view.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -14,7 +13,7 @@ abstract class AppRouter {
     routes: [
       // GoRoute(
       //   path: '/',
-      //   builder: (context, state) =>   const SplashView(),
+      //   builder: (context, state) =>   const NewPasswordView(),
       // ),
       // GoRoute(
       //   path: kOnBoarding,
@@ -24,10 +23,10 @@ abstract class AppRouter {
       //   path: kLogin,
       //   builder: (context, state) =>   const LoginView(),
       // ),
-      GoRoute(
-        path: '/',
-        builder: (context, state) =>   const RegisterView(),
-      ),
+      // GoRoute(
+      //   path: '/',
+      //   builder: (context, state) =>   const RegisterView(),
+      // ),
 
     ],
   );

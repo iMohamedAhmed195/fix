@@ -13,10 +13,6 @@ class ImageAndTextSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // SizedBox(
-        //     width: MediaQuery.sizeOf(context).width * 0.5,
-        //     child: Image.asset(AssetsData.logIn,)
-        // ),
 
         Text(
           namePage,
