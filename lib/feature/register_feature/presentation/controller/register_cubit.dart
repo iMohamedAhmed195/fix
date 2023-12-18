@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/enums/craft_type.dart';
 import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/feature/register_feature/domain/use_case/register_use_case.dart';
@@ -36,7 +37,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       profileImage = File(pickedFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-
       emit(ProfileImageErrorStates());
     }
   }
@@ -49,12 +49,11 @@ class RegisterCubit extends Cubit<RegisterState> {
       profileImageCa = File(pickedFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-
       emit(ProfileImageErrorStates());
     }
   }
 
-  late File nIDImage;
+  File? nIDImage;
   XFile? nIDFile;
 
   Future<void> getImageNIDFromGallery() async {
@@ -64,7 +63,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       nIDImage = File(nIDFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-
       emit(ProfileImageErrorStates());
     }
   }
@@ -76,16 +74,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       nIDImage = File(nIDFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-
       emit(ProfileImageErrorStates());
     }
-  }
-
-  String phone = "";
-
-  void changePhone(String text) {
-    phone = text;
-    emit(ChangePhoneState());
   }
 
   UserType? userType;
@@ -117,17 +107,20 @@ class RegisterCubit extends Cubit<RegisterState> {
         city: cityController.text,
         nationalId: nIdController.text,
         photo: profileImageCa ?? profileImage,
-        idPhoto: nIDImage,
+        idPhoto: nIDImage!,
         address: addressController.text,
         name: nameController.text,
         password: passwordController.text,
         confirmPassword: confirmPasswordController.text,
-        phone: phone));
+        phone: phoneController.text));
 
     result.fold(
         (leftError) =>
             emit(RegisterErrorState(errorMessage: leftError.message)),
-        (rightRegisterEntity) => emit(RegisterSuccessState()));
+        (rightRegisterEntity) {
+          print("doneeeeeeeeeeeeeeeee");
+          emit(RegisterSuccessState());
+        } );
   }
 
   bool isValidEmail() {
@@ -138,9 +131,9 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   bool checkPassword() {
     if (confirmPasswordController.text == passwordController.text) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
@@ -167,5 +160,36 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   DateTime _parseDate(String dateString) {
     return DateTime.parse(dateString);
+  }
+
+  bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
+
+  changePasswordVisibility() {
+    passwordVisible = !passwordVisible;
+    emit(ChangePasswordVisibilityState());
+  }
+
+  changeConfirmPasswordVisibility() {
+    confirmPasswordVisible = !confirmPasswordVisible;
+    emit(ChangeConfirmPasswordVisibilityState());
+  }
+
+  validateUserTypeAndWorkerCraft() {
+    switch (userType) {
+      case null:
+        showToast(
+            text: "Please choose your type as customer or worker",
+            state: ToastState.warning);
+      case UserType.worker:
+        if (craftType != null) {
+          fetchRegister();
+        } else {
+          showToast(
+              text: "Please choose your craft type", state: ToastState.warning);
+        }
+      case UserType.customer:
+        fetchRegister();
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
+import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/feature/register_feature/presentation/controller/register_cubit.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/address_section.dart';
@@ -41,7 +42,9 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
             padding: EdgeInsets.all(15.0.r),
             child: Container(
               width: double.infinity,
+              padding: EdgeInsets.only(bottom: 10.h),
               decoration: BoxDecoration(
+
                   borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(color: Styles.kPrimaryColor, width: 3.w)),
               child: Form(
@@ -61,17 +64,19 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
                     const ImageNationalIdSection(),
                     const ChooseRoleSection(),
                     const ChooseCraftSection(),
-                    CustomButton(
+                     CustomButton(
                       buttonName: 'Register',
                       function: () {
                         if (sl<RegisterCubit>()
-                            .registerKey
-                            .currentState!
-                            .validate()) {
-                          sl<RegisterCubit>().fetchRegister();
+                                .registerKey
+                                .currentState!
+                                .validate() &&
+                            sl<RegisterCubit>().nIDImage != null) {
+                          sl<RegisterCubit>().validateUserTypeAndWorkerCraft();
                         }
                       },
-                    )
+                    ),
+
                   ],
                 ),
               ),

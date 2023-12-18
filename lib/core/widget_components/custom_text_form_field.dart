@@ -25,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obSecure;
   final TextInputType inputType;
   final List<TextInputFormatter>? formatList;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

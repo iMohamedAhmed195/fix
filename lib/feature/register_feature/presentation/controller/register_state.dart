@@ -31,3 +31,8 @@ class ChangeUserTypeOptionState extends RegisterState {}
 class ChangeCraftTypeOptionState extends RegisterState {}
 
 class AgreementStateDone extends RegisterState {}
+
+class ChangePasswordVisibilityState extends RegisterState {}
+class ChangeConfirmPasswordVisibilityState extends RegisterState {}
+
+

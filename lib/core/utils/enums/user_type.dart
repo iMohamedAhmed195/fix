@@ -13,9 +13,9 @@ extension UserTypeStringExtension on UserType {
   String get value {
     switch (this) {
       case UserType.worker:
-        return "Worker";
+        return "worker";
       case UserType.customer:
-        return "Customer";
+        return "customer";
     }
   }
 }

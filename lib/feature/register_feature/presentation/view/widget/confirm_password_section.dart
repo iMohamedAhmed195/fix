@@ -24,8 +24,10 @@ class ConfirmPasswordSection extends StatelessWidget {
           },
           iconPrefix: Icons.lock,
           controller: sl<RegisterCubit>().confirmPasswordController,
-          obSecure: true,
+          obSecure: sl<RegisterCubit>().confirmPasswordVisible,
           inputType: TextInputType.visiblePassword,
+          iconSuffix: Icons.remove_red_eye,
+          sufFunction: () => sl<RegisterCubit>().changeConfirmPasswordVisibility(),
         );
       },
     );

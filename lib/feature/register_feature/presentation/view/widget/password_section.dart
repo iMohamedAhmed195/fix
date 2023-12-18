@@ -13,21 +13,21 @@ class PasswordSection extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return CustomTextFormField(
-          hintText: 'Password',
-          function: (value) {
-            if (value!.isEmpty) {
-              return 'enter your password';
-            } else if (sl<RegisterCubit>().checkPassword()) {
-              return "The password and confirm password must match";
-            }
-            return null;
-          },
-          iconPrefix: Icons.lock,
-          controller: sl<RegisterCubit>().passwordController,
-          obSecure: true,
-          inputType: TextInputType.visiblePassword,
-          iconSuffix: Icons.remove_red_eye,
-        );
+            hintText: 'Password',
+            function: (value) {
+              if (value!.isEmpty) {
+                return 'enter your password';
+              } else if (sl<RegisterCubit>().checkPassword()) {
+                return "The password and confirm password must match";
+              }
+              return null;
+            },
+            iconPrefix: Icons.lock,
+            controller: sl<RegisterCubit>().passwordController,
+            obSecure: sl<RegisterCubit>().passwordVisible,
+            inputType: TextInputType.visiblePassword,
+            iconSuffix: Icons.remove_red_eye,
+            sufFunction: () => sl<RegisterCubit>().changePasswordVisibility());
       },
     );
   }

@@ -13,6 +13,8 @@ abstract class BaseRegisterRemoteDataSource {
 class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   @override
   Future<RegisterModel> fetchRegister(RegisterParameters parameters) async {
+    print("sdnsakdjnkjnkas");
+
     final response =
         await sl<DioHelper>().postData(url: ApiConstants.register, data: {
       "name": parameters.name,
@@ -28,6 +30,14 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
       "photo_id": parameters.idPhoto,
       "addresse": parameters.address,
     });
+    print("sdnsakd---------------------jnkjnkas");
+
+    print(response);
+    print(response.data);
+    print(response.statusMessage);
+    print(response.statusCode);
+
+
 
     if (response.statusCode == 200) {
       return RegisterModel.fromJson(response.data);
