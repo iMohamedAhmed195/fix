@@ -170,7 +170,7 @@ class BottomSheetForNid extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0.sp,
-                      color: Color(0xff4377ec),
+                      color: const Color(0xff4377ec),
                     ),
                   )
                 ],

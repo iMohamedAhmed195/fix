@@ -1,6 +1,5 @@
 import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/feature/register_feature/presentation/controller/register_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

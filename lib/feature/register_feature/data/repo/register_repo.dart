@@ -20,7 +20,7 @@ class RegisterRepo extends BaseRegisterRepo {
       if (failure is ServerException) {
         return Left(ServerFailure(failure.errorMessageModel.statusMessage));
       } else {
-        return Left(ServerFailure('there is an error we dont now that'));
+        return const Left(ServerFailure('there is an error we dont now that'));
       }
     }
   }

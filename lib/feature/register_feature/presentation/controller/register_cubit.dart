@@ -36,7 +36,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       profileImage = File(pickedFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-      print('no image selceted');
+
       emit(ProfileImageErrorStates());
     }
   }
@@ -49,7 +49,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       profileImageCa = File(pickedFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-      print('no image selceted');
+
       emit(ProfileImageErrorStates());
     }
   }
@@ -64,7 +64,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       nIDImage = File(nIDFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-      print('no image selceted');
+
       emit(ProfileImageErrorStates());
     }
   }
@@ -76,7 +76,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       nIDImage = File(nIDFile!.path);
       emit(ProfileImageSuccessStates());
     } else {
-      print('no image selceted');
+
       emit(ProfileImageErrorStates());
     }
   }
