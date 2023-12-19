@@ -20,7 +20,7 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
       "name": parameters.name,
       "password": parameters.password,
       "passwordConfirm": parameters.confirmPassword,
-      "phone": parameters.phone,
+      "phone": "+20 1126108002",
       "email": parameters.email,
       "role": parameters.role,
       "birthdate": parameters.birthDate,
@@ -36,8 +36,6 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
     print(response.data);
     print(response.statusMessage);
     print(response.statusCode);
-
-
 
     if (response.statusCode == 200) {
       return RegisterModel.fromJson(response.data);

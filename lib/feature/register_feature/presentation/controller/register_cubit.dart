@@ -99,6 +99,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void fetchRegister() async {
+    print("heloooooooooo");
     emit(RegisterLoadingState());
     final result = await registerUseCase.call(RegisterParameters(
         email: emailController.text,
