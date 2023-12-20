@@ -19,7 +19,7 @@ class DataSourceImpl extends BaseDataSource{
            'password' :parameters.password,
          });
 
-        if (result.statusCode == 202) {
+        if (result.statusCode == 200) {
            return LoginModel.fromJson(result.data);
      } else if (result.statusCode == 404) {
        try {
