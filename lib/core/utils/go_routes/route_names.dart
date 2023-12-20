@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const kOnBoarding = '/kOnBoarding';
-  static const kLogin = '/Login';
+  static const kLogin = '/';
   static const kRegister = '/Register';
   static const kChooseEmailPhone = '/ChooseEmailPhone';
   static const kForgetPassword = '/ForgetPassword';
@@ -18,7 +18,7 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: kLogin,
         builder: (context, state) => const LoginView(),
       ),
       GoRoute(
