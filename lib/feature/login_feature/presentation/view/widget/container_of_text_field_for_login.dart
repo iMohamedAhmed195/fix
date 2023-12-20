@@ -2,11 +2,13 @@ import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/utils/constants/strings.dart';
+import 'package:fix/core/utils/go_routes/route_names.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/core/widget_components/custom_text_form_field.dart';
 import 'package:fix/feature/login_feature/presentation/controller/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 
 class ContainerOfTextField extends StatelessWidget {
@@ -72,6 +74,19 @@ class ContainerOfTextField extends StatelessWidget {
                       inputType: TextInputType.visiblePassword,
                       iconSuffix: Icons.remove_red_eye,
                     ),
+                    TextButton(
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kForgetPassword);
+                      },
+                      child: const Text('Forget Password',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Styles.kPrimaryColor,
+                          )),
+
+                    ),
+
                     CustomButton(
                       buttonName: 'Login',
                       function: () {
@@ -79,7 +94,8 @@ class ContainerOfTextField extends StatelessWidget {
                           sl<LoginCubit>().logInApp();
                         }
                       },
-                    )
+                    ),
+                    const SizedBox(height: 10,),
                   ],
                 ),
               ),

@@ -1,9 +1,11 @@
 import 'package:fix/core/utils/constants/colors.dart';
+import 'package:fix/core/utils/go_routes/route_names.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/core/widget_components/custom_text_form_field.dart';
 import 'package:fix/core/widget_components/image_text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class NewPasswordViewBody extends StatelessWidget {
    NewPasswordViewBody({super.key});
@@ -55,12 +57,17 @@ class NewPasswordViewBody extends StatelessWidget {
 
                     SizedBox(height: 20.h,),
                     CustomButton(
-                      function: () {},
+                      function: () {
+                        GoRouter.of(context).push(AppRouter.kLogin);
+
+                      },
                       buttonName: 'Next',
                     ),
                     SizedBox(height: 15.h,),
                     CustomButton(
-                      function: () {},
+                      function: () {
+                        GoRouter.of(context).push(AppRouter.kLogin);
+                      },
                       buttonName: 'Cancel',
                       buttonColor: Colors.grey[400],
                     ),
