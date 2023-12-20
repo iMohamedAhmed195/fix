@@ -15,7 +15,7 @@ class EmailSection extends StatelessWidget {
         return CustomTextFormField(
           hintText: 'Email',
           function: (value) {
-            if (sl<RegisterCubit>().isValidEmail()) {
+            if (!sl<RegisterCubit>().isValidEmail()) {
               return 'Please Enter a Valid email';
             } else if (value!.isEmpty) {
               return 'This field cannot be empty';

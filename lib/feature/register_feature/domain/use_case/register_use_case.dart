@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fix/core/error/failure.dart';
 import 'package:fix/core/use_case/base_use_case.dart';
 import 'package:fix/feature/register_feature/domain/entity/register.dart';
 import 'package:fix/feature/register_feature/domain/repo/base_register_repo.dart';
+import 'package:flutter/cupertino.dart';
 
 class RegisterUseCase extends BaseUseCase<RegisterEntity, RegisterParameters> {
   BaseRegisterRepo baseRegisterRepo;
@@ -26,12 +28,15 @@ class RegisterParameters extends Equatable {
   final String birthDate;
   final String city;
   final String nationalId;
-  final File? photo;
+  final File photo;
   final File idPhoto;
   final String address;
-
+  final String? jobTitle;
+  final String? bio;
   const RegisterParameters(
       {required this.email,
+      required this.jobTitle,
+      required this.bio,
       required this.role,
       required this.birthDate,
       required this.city,
@@ -43,8 +48,11 @@ class RegisterParameters extends Equatable {
       required this.password,
       required this.confirmPassword,
       required this.phone});
+
   @override
   List<Object?> get props => [
+        jobTitle,
+        bio,
         email,
         role,
         birthDate,

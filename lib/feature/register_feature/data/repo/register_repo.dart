@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:fix/core/error/failure.dart';
 import 'package:fix/core/error/server_exception.dart';
 import 'package:fix/feature/register_feature/data/data_source/register_remote_data_source.dart';
@@ -12,7 +13,25 @@ class RegisterRepo extends BaseRegisterRepo {
   @override
   Future<Either<Failure, RegisterEntity>> fetchRegister(
       RegisterParameters parameters) async {
-    final result = await baseRegisterRemoteDataSource.fetchRegister(parameters);
+    FormData formattedData = FormData.fromMap({
+      "photo": await MultipartFile.fromFile(parameters.photo.path,
+          filename: parameters.photo.path.split("/").last),
+      'name': parameters.name,
+      'email': parameters.email,
+      'password': parameters.password,
+      'passwordConfirm': parameters.confirmPassword,
+      'phone': parameters.phone,
+      'birthdate': parameters.birthDate,
+      'city': parameters.city,
+      'national_id': parameters.nationalId,
+      'role': parameters.role,
+      'job': parameters.jobTitle,
+      'bio': parameters.bio,
+      'photo_id': await MultipartFile.fromFile(parameters.idPhoto.path,
+          filename: parameters.idPhoto.path.split("/").last),
+    });
+
+    final result = await baseRegisterRemoteDataSource.fetchRegister(formattedData);
 
     try {
       return Right(result);

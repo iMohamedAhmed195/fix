@@ -35,7 +35,7 @@ class ImageNationalIdSection extends StatelessWidget {
                   ],
                 ),
               ),
-              if (sl<RegisterCubit>().nIDImage == null)
+              if (sl<RegisterCubit>().nIDFile == null)
                 Padding(
                   padding: EdgeInsets.only(top: 8.0.h),
                   child: const Text(

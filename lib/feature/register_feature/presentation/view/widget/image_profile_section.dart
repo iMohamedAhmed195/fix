@@ -19,10 +19,16 @@ class ImageProfileSection extends StatelessWidget {
           child: Stack(
             alignment: Alignment.bottomRight,
             children: [
-              CircleAvatar(
-                radius: 80.r,
-                backgroundImage: FileImage(sl<RegisterCubit>().profileImage),
-              ),
+              sl<RegisterCubit>().pickedFile == null
+                  ? CircleAvatar(
+                      radius: 80.r,
+                      backgroundImage:
+                          AssetImage(sl<RegisterCubit>().profileImage.path))
+                  : CircleAvatar(
+                      radius: 80.r,
+                      backgroundImage:
+                          FileImage(sl<RegisterCubit>().profileImage),
+                    ),
               Padding(
                 padding: EdgeInsetsDirectional.only(
                   bottom: 7.0.h,

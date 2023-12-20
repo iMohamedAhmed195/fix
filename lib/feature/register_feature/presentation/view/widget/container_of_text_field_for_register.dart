@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
@@ -64,18 +65,26 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
                     const ImageNationalIdSection(),
                     const ChooseRoleSection(),
                     const ChooseCraftSection(),
-                     CustomButton(
-                      buttonName: 'Register',
-                      function: () {
-                        if (sl<RegisterCubit>()
-                                .registerKey
-                                .currentState!
-                                .validate() &&
-                            sl<RegisterCubit>().nIDImage != null) {
-                          sl<RegisterCubit>().validateUserTypeAndWorkerCraft();
-                        }
-                      },
-                    ),
+                     ConditionalBuilder(
+                       condition: state is RegisterLoadingState,
+                       builder: (context) {
+                         return const Center(child: CircularProgressIndicator(),);
+                       },
+                       fallback: (context) {
+                         return CustomButton(
+                           buttonName: 'Register',
+                           function: () {
+                             if (sl<RegisterCubit>()
+                                 .registerKey
+                                 .currentState!
+                                 .validate() &&
+                                 sl<RegisterCubit>().nIDFile != null) {
+                               sl<RegisterCubit>().validateUserTypeAndWorkerCraft();
+                             }
+                           },
+                         );
+                       },
+                     ),
 
                   ],
                 ),

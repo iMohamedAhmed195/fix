@@ -16,9 +16,9 @@ class DioHelper {
       ),
     );
 
-    final loggingInterceptor = LoggingInterceptor();
+    //final loggingInterceptor = LoggingInterceptor();
 
-    dio.interceptors.add(loggingInterceptor);
+    //dio.interceptors.add(loggingInterceptor);
   }
 
   Future<Response> getData({

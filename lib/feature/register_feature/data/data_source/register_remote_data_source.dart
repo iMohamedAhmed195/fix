@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fix/core/error/error_message_model.dart';
 import 'package:fix/core/error/server_exception.dart';
 import 'package:fix/core/network/api_constance.dart';
@@ -7,29 +8,14 @@ import 'package:fix/feature/register_feature/data/model/register_model.dart';
 import 'package:fix/feature/register_feature/domain/use_case/register_use_case.dart';
 
 abstract class BaseRegisterRemoteDataSource {
-  Future<RegisterModel> fetchRegister(RegisterParameters parameters);
+  Future<RegisterModel> fetchRegister(FormData formattedData);
 }
 
 class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   @override
-  Future<RegisterModel> fetchRegister(RegisterParameters parameters) async {
-    print("sdnsakdjnkjnkas");
-
-    final response =
-        await sl<DioHelper>().postData(url: ApiConstants.register, data: {
-      "name": parameters.name,
-      "password": parameters.password,
-      "passwordConfirm": parameters.confirmPassword,
-      "phone": "+20 1126108002",
-      "email": parameters.email,
-      "role": parameters.role,
-      "birthdate": parameters.birthDate,
-      "city": parameters.city,
-      "national_id": parameters.nationalId,
-      "photo": parameters.photo,
-      "photo_id": parameters.idPhoto,
-      "addresse": parameters.address,
-    });
+  Future<RegisterModel> fetchRegister(FormData formattedData) async {
+    final response = await sl<DioHelper>()
+        .postData(url: ApiConstants.register, data: formattedData);
     print("sdnsakd---------------------jnkjnkas");
 
     print(response);

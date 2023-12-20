@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/enums/craft_type.dart';
 import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/feature/register_feature/domain/use_case/register_use_case.dart';
+import 'package:fix/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +28,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final ImagePicker picker = ImagePicker();
 
-  File profileImage = File('assets/images/defaultUser.png');
+  File profileImage = File(Assets.imagesDefaultUser);
   XFile? pickedFile;
 
   Future<void> getImageProfileFromGallery() async {
@@ -53,7 +53,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  File? nIDImage;
+  late File nIDImage;
   XFile? nIDFile;
 
   Future<void> getImageNIDFromGallery() async {
@@ -99,29 +99,31 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void fetchRegister() async {
-    print("heloooooooooo");
     emit(RegisterLoadingState());
     final result = await registerUseCase.call(RegisterParameters(
-        email: emailController.text,
-        role: userType!.value,
-        birthDate: dateController.text,
-        city: cityController.text,
-        nationalId: nIdController.text,
-        photo: profileImageCa ?? profileImage,
-        idPhoto: nIDImage!,
-        address: addressController.text,
-        name: nameController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
-        phone: phoneController.text));
+      email: emailController.text,
+      role: userType!.value,
+      birthDate: dateController.text,
+      city: cityController.text,
+      nationalId: nIdController.text,
+      photo: profileImage,
+      idPhoto: nIDImage,
+      address: addressController.text,
+      name: nameController.text,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
+      phone: phoneController.text,
+      jobTitle: craftType?.value,
+      bio: null,
+    ));
 
     result.fold(
         (leftError) =>
             emit(RegisterErrorState(errorMessage: leftError.message)),
         (rightRegisterEntity) {
-          print("doneeeeeeeeeeeeeeeee");
-          emit(RegisterSuccessState());
-        } );
+      print("doneeeeeeeeeeeeeeeee");
+      emit(RegisterSuccessState());
+    });
   }
 
   bool isValidEmail() {
