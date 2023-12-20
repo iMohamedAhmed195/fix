@@ -54,7 +54,6 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       'Accept': 'application/json',
-
       'Authorization': 'Bearer $token'
     };
     return await dio.put(url, queryParameters: query, data: data);

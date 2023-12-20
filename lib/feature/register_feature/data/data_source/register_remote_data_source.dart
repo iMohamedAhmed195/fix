@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:fix/core/error/error_message_model.dart';
 import 'package:fix/core/error/server_exception.dart';
 import 'package:fix/core/network/api_constance.dart';
-import 'package:fix/core/services/dio_helper.dart';
-import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/feature/register_feature/data/model/register_model.dart';
 
 abstract class BaseRegisterRemoteDataSource {
@@ -13,14 +11,16 @@ abstract class BaseRegisterRemoteDataSource {
 class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   @override
   Future<RegisterModel> fetchRegister(FormData formattedData) async {
-    final response = await sl<DioHelper>()
-        .postData(url: ApiConstants.register, data: formattedData);
-    print("sdnsakd---------------------jnkjnkas");
-
-    print(response);
-    print(response.data);
-    print(response.statusMessage);
-    print(response.statusCode);
+    final response = await Dio().post(
+      '${ApiConstants.baseUrl}${ApiConstants.register}',
+      data: formattedData,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data'
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       return RegisterModel.fromJson(response.data);

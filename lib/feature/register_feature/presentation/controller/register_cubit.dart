@@ -98,6 +98,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(AgreementStateDone());
   }
 
+  String? phoneNumber;
+
   void fetchRegister() async {
     emit(RegisterLoadingState());
     final result = await registerUseCase.call(RegisterParameters(
@@ -112,7 +114,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       name: nameController.text,
       password: passwordController.text,
       confirmPassword: confirmPasswordController.text,
-      phone: "+20 0${phoneController.text}",
+      phone: phoneNumber!,
       jobTitle: craftType?.value,
     ));
 
@@ -120,7 +122,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         (leftError) =>
             emit(RegisterErrorState(errorMessage: leftError.message)),
         (rightRegisterEntity) {
-      print("doneeeeeeeeeeeeeeeee");
       emit(RegisterSuccessState());
     });
   }

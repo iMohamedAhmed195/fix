@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 
 class PhoneSection extends StatelessWidget {
   const PhoneSection({super.key});
@@ -11,9 +12,7 @@ class PhoneSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -27,10 +26,12 @@ class PhoneSection extends StatelessWidget {
                     borderSide: BorderSide(),
                   ),
                 ),
+                onChanged: (PhoneNumber number) {
+                  sl<RegisterCubit>().phoneNumber = number.completeNumber;
+                },
                 initialCountryCode: 'EG',
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                      RegExp(r'^\d*\d{0,2}$')),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\d{0,2}$')),
                 ],
               ),
             ],
