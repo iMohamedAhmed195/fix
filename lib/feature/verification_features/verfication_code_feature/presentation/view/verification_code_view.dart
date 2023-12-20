@@ -1,4 +1,4 @@
-import 'package:fix/features/verification_features/verfication_code_feature/presentation/view/widget/verification_code_view_body.dart';
+import 'package:fix/feature/verification_features/verfication_code_feature/presentation/view/widget/verification_code_view_body.dart';
 import 'package:flutter/material.dart';
 
 class VerificationView extends StatelessWidget {
@@ -6,7 +6,7 @@ class VerificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(child: VerificationViewBody()),
     );
   }

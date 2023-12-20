@@ -1,34 +1,46 @@
 import 'package:fix/feature/login_feature/presentation/view/login_view.dart';
+import 'package:fix/feature/register_feature/presentation/view/register_view.dart';
+import 'package:fix/feature/verification_features/choose_email_phone_feature/presentation/view/choose_view.dart';
+import 'package:fix/feature/verification_features/forget_password_feature/presentation/view/forget_password_view.dart';
+import 'package:fix/feature/verification_features/new_password_feature/presentation/view/new_password_view.dart';
+import 'package:fix/feature/verification_features/verfication_code_feature/presentation/view/verification_code_view.dart';
 import 'package:go_router/go_router.dart';
-
-
 
 abstract class AppRouter {
   static const kOnBoarding = '/kOnBoarding';
   static const kLogin = '/Login';
   static const kRegister = '/Register';
-  static const kHome = '/Home';
-  static const kBookDetails = '/BookDetails';
+  static const kChooseEmailPhone = '/ChooseEmailPhone';
+  static const kForgetPassword = '/ForgetPassword';
+  static const kNewPassword = '/NewPassword';
+  static const kVerificationCode = '/VerificationCode';
 
   static final router = GoRouter(
     routes: [
-      //GoRoute(
-      //  path: '/',
-      //  builder: (context, state) =>   const LoginView(),
-      //),
-      // GoRoute(
-      //   path: kOnBoarding,
-      //   builder: (context, state) =>   const OnBoardingScreen(),
-      // ),
-      // GoRoute(
-      //   path: kLogin,
-      //   builder: (context, state) =>   const LoginView(),
-      // ),
-      // GoRoute(
-      //   path: '/',
-      //   builder: (context, state) =>   const RegisterView(),
-      // ),
-
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const LoginView(),
+      ),
+      GoRoute(
+        path: kForgetPassword,
+        builder: (context, state) => const ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: kRegister,
+        builder: (context, state) => const RegisterView(),
+      ),
+      GoRoute(
+        path: kChooseEmailPhone,
+        builder: (context, state) => const ChooseView(),
+      ),
+      GoRoute(
+        path: kNewPassword,
+        builder: (context, state) => const NewPasswordView(),
+      ),
+      GoRoute(
+        path: kVerificationCode,
+        builder: (context, state) => const VerificationView(),
+      ),
     ],
   );
 }

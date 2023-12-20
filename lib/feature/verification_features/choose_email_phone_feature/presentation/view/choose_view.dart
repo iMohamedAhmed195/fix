@@ -1,4 +1,4 @@
-import 'package:fix/features/verification_features/choose_email_phone_feature/presentation/view/widget/choose_view_body.dart';
+import 'package:fix/feature/verification_features/choose_email_phone_feature/presentation/view/widget/choose_view_body.dart';
 import 'package:flutter/material.dart';
 
 class ChooseView extends StatelessWidget {
