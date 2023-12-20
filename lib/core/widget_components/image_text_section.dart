@@ -1,5 +1,6 @@
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
@@ -15,9 +16,9 @@ class ImageAndTextSection extends StatelessWidget {
 
         Text(
           namePage,
-          style: const TextStyle(
+          style:  TextStyle(
               fontWeight: FontWeight.w900,
-              fontSize: 28,
+              fontSize: 28.sp,
               color: Styles.kPrimaryColor
           ),
         )
