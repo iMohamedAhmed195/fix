@@ -1,3 +1,5 @@
+
+
 import 'package:fix/core/error/error_message_model.dart';
 
 class ServerException implements Exception {
@@ -6,3 +8,4 @@ class ServerException implements Exception {
     required this.errorMessageModel,
   });
 }
+

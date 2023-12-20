@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fix/core/error/failure.dart';
-import 'package:fix/core/use_case/base_use_case.dart';
+import 'package:fix/core/use_case/base_usecase.dart';
 import 'package:fix/feature/register_feature/domain/entity/register.dart';
 import 'package:fix/feature/register_feature/domain/repo/base_register_repo.dart';
 import 'package:flutter/cupertino.dart';
