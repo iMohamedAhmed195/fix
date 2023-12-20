@@ -6,6 +6,11 @@ PODS:
     - Flutter
   - flutter_secure_storage (6.0.0):
     - Flutter
+  - image_picker_ios (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -29,6 +34,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_secure (from `.symlinks/plugins/flutter_secure/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
@@ -47,6 +53,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
@@ -61,6 +69,8 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_secure: a912a8e8342163fcbcb9e6da988c6246f89130fe
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   libphonenumber_plugin: e8a7d64a6624a7c25f2c4ab0b7ead2a8e341e35e
