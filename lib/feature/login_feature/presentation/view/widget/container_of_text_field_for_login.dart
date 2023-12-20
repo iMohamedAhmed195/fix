@@ -4,7 +4,7 @@ import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/utils/constants/strings.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/core/widget_components/custom_text_form_field.dart';
-import 'package:fix/features/login_feature/presentation/controller/login_cubit.dart';
+import 'package:fix/feature/login_feature/presentation/controller/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

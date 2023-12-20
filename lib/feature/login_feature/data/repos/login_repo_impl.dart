@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:fix/core/error/failure.dart';
 import 'package:fix/core/error/server_exception.dart';
-import 'package:fix/features/login_feature/data/data_source/login_data_source.dart';
-import 'package:fix/features/login_feature/data/login_model/login_model.dart';
-import 'package:fix/features/login_feature/domain/repo/login_base_repo.dart';
-import 'package:fix/features/login_feature/domain/use_cases/login_use_case.dart';
+import 'package:fix/feature/login_feature/data/data_source/login_data_source.dart';
+import 'package:fix/feature/login_feature/data/login_model/login_model.dart';
+import 'package:fix/feature/login_feature/domain/repo/login_base_repo.dart';
+import 'package:fix/feature/login_feature/domain/use_cases/login_use_case.dart';
+
 
 class LoginRepoImpl extends LoginBaseRepo{
   LoginRepoImpl(this.baseDataSource);

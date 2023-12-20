@@ -1,6 +1,6 @@
 
-import 'package:fix/features/login_feature/domain/entities/login_entity.dart';
-import 'package:fix/features/login_feature/domain/use_cases/login_use_case.dart';
+import 'package:fix/feature/login_feature/domain/entities/login_entity.dart';
+import 'package:fix/feature/login_feature/domain/use_cases/login_use_case.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

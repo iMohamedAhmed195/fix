@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fix/core/utils/enums.dart';
+import 'package:fix/core/utils/enums/user_type.dart';
 
 class LoginEntity extends Equatable {
   final bool status;

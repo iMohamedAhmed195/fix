@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fix/core/error/failure.dart';
 import 'package:fix/core/use_case/base_usecase.dart';
-import 'package:fix/features/login_feature/domain/entities/login_entity.dart';
-import 'package:fix/features/login_feature/domain/repo/login_base_repo.dart';
+import 'package:fix/feature/login_feature/domain/entities/login_entity.dart';
+import 'package:fix/feature/login_feature/domain/repo/login_base_repo.dart';
+
 
 class LoginUseCase extends BaseUseCase<LoginEntity , LoginParameters>{
    LoginBaseRepo loginBaseRepo;

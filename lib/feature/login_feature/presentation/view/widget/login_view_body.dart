@@ -1,7 +1,7 @@
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/utils/go_routes/route_names.dart';
 import 'package:fix/core/widget_components/image_text_section.dart';
-import 'package:fix/features/login_feature/presentation/view/widget/container_of_text_field_for_login.dart';
+import 'package:fix/feature/login_feature/presentation/view/widget/container_of_text_field_for_login.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
