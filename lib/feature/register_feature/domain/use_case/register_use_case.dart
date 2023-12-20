@@ -32,11 +32,9 @@ class RegisterParameters extends Equatable {
   final File idPhoto;
   final String address;
   final String? jobTitle;
-  final String? bio;
   const RegisterParameters(
       {required this.email,
       required this.jobTitle,
-      required this.bio,
       required this.role,
       required this.birthDate,
       required this.city,
@@ -52,7 +50,6 @@ class RegisterParameters extends Equatable {
   @override
   List<Object?> get props => [
         jobTitle,
-        bio,
         email,
         role,
         birthDate,

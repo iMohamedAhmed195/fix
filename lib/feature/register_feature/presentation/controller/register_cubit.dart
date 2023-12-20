@@ -112,9 +112,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       name: nameController.text,
       password: passwordController.text,
       confirmPassword: confirmPasswordController.text,
-      phone: phoneController.text,
+      phone: "+20 0${phoneController.text}",
       jobTitle: craftType?.value,
-      bio: null,
     ));
 
     result.fold(

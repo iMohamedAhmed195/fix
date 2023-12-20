@@ -26,7 +26,6 @@ class RegisterRepo extends BaseRegisterRepo {
       'national_id': parameters.nationalId,
       'role': parameters.role,
       'job': parameters.jobTitle,
-      'bio': parameters.bio,
       'photo_id': await MultipartFile.fromFile(parameters.idPhoto.path,
           filename: parameters.idPhoto.path.split("/").last),
     });

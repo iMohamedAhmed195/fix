@@ -5,7 +5,6 @@ import 'package:fix/core/network/api_constance.dart';
 import 'package:fix/core/services/dio_helper.dart';
 import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/feature/register_feature/data/model/register_model.dart';
-import 'package:fix/feature/register_feature/domain/use_case/register_use_case.dart';
 
 abstract class BaseRegisterRemoteDataSource {
   Future<RegisterModel> fetchRegister(FormData formattedData);
