@@ -5,9 +5,8 @@ import 'package:fix/core/services/logging_interceptor.dart';
 
 
 class DioHelper {
-  Dio dio;
+  late Dio dio;
 
-  DioHelper(this.dio);
 
   void init() {
     dio = Dio(
@@ -41,7 +40,7 @@ class DioHelper {
     String? token,
   }) async {
     dio.options.headers = {
-
+      'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     };
     return await dio.post(url, queryParameters: query, data: data);
@@ -55,7 +54,6 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       'Accept': 'application/json',
-
       'Authorization': 'Bearer $token'
     };
     return await dio.put(url, queryParameters: query, data: data);
