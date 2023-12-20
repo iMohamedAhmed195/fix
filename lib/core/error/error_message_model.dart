@@ -19,6 +19,6 @@ class ErrorMessageModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        statusMessage,
-      ];
+    statusMessage,
+  ];
 }
