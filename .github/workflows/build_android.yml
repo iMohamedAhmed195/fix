@@ -23,7 +23,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date + '%Y-%m-%d')"
       - name: Get Folder Id by condition
-        id: folder Id
+        id: folderId
         uses: haya14busa/action-cond@v1
         with:
           cond: ${{steps.branch.outputs.branch == 'master' }}
