@@ -12,6 +12,7 @@ void main() {
   sl<DioHelper>().init();
 
   Bloc.observer = MyBlocObserver();
+
   runApp(const MyApp());
 }
 
