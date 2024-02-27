@@ -14,7 +14,7 @@ jobs:
     # we need java to build android apks
     - uses: actions/setup-java@v1
       with:
-        java-version: '12.x'
+        java-version: '18.x'
     # this flutter action does the heavy lifting for us
     - uses: subosito/flutter-action@v1
       with:
@@ -22,7 +22,7 @@ jobs:
     # get packages as you used to in your computer
     - run: flutter pub get
     # Now build apk
-    - run: flutter build apk --split-per-abi
+    - run: flutter build apk
     # now relase the just created build
     - name: Create a Release APK
       uses: ncipollo/release-action@v1
