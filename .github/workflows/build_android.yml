@@ -1,7 +1,11 @@
+name: Flutter CI
 on: 
-  push: 
-    tags : 
-      - v*
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs: 
   build-and-test: 
     runs-on: ubuntu-latest
