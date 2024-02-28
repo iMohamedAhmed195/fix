@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: MaterialButton(
           onPressed: function,
-          color: buttonColor ?? Styles.kPrimaryColor,
+          color: buttonColor ?? Colors.black,
           child: Text(
             buttonName,
             style:  TextStyle(
