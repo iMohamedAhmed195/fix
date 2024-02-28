@@ -8,8 +8,12 @@ import 'core/services/bloc_observer.dart';
 
 void main() {
   ServiceLocator().init();
+
   sl<DioHelper>().init();
+
   Bloc.observer = MyBlocObserver();
+
+
   runApp(const MyApp());
 }
 
