@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - test
 jobs:
   build_upload_notify:
     name: build_upload_notify
@@ -46,3 +47,19 @@ jobs:
           name: ${{ steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
           overwrite: "true"
           mimeType: "application/vnd.android.package-archive"
+      - name: Get SlackWebHook
+        uses: haya14busa/action-cond@v1
+        id: slackwebhook
+        with:
+          cond: ${{steps.branch.outputs.branch == 'master' }}
+          if_true: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Notify on slack channel
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: ${{ steps.branch.outputs.branch }}
+          SLACK_COLOR: ${{ JOB.STATUS }}
+          SLACK_MESSAGE: https://drive.google.com/drive/u/0/folders/${{ steps.folderId.outputs.value }}
+          SLACK_TITLE: Upload new ${{ steps.folderId.outputs.branch }} apk
+          SLACK_USERNAME: CheckerMan
+          SLACK_WEBHOOK: ${{ steps.slackwebhook.outputs.value }}
