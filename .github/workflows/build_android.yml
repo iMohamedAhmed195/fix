@@ -44,7 +44,7 @@ jobs:
           credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
           filename: "build/app/outputs/apk/release/app-release.apk"
           folderId: ${{ steps.folderId.outputs.value }}
-          name: taj_user_${{ steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
+          name: ${{ steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
           overwrite: "true"
           mimeType: "application/vnd.android.package-archive"
       - name: Get SlackWebHook
@@ -53,6 +53,7 @@ jobs:
         with:
           cond: ${{steps.branch.outputs.branch == 'master' }}
           if_true: ${{ secrets.SLACK_WEBHOOK }}
+          if_false: ${{ secrets.TEST_SLACK_HOOK }}
       - name: Notify on slack channel
         uses: rtCamp/action-slack-notify@v2
         env:
