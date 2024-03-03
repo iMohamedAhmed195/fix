@@ -5,7 +5,7 @@ class ErrorMessageModel extends Equatable {
   final String statusMessage;
 
 
-  const ErrorMessageModel ({
+  const ErrorMessageModel  ({
 
     required this.statusMessage,
 
