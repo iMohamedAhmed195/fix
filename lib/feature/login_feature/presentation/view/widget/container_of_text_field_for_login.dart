@@ -2,10 +2,13 @@ import 'package:fix/core/services/services_locator.dart';
 import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/utils/constants/strings.dart';
+import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/core/utils/go_routes/route_names.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/core/widget_components/custom_text_form_field.dart';
 import 'package:fix/feature/login_feature/presentation/controller/login_cubit.dart';
+import 'package:fix/feature/timeline/timeline_user/timeline_user.dart';
+import 'package:fix/feature/timeline/timeline_worker/timeline_worker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,14 +26,18 @@ class ContainerOfTextField extends StatelessWidget {
           if(state is LoginSuccessState){
             showToast(text: 'Login Success', state: ToastState.success);
             Strings.token = state.loginEntity.token;
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => LayoutView(
-            //           imageProfile: state.loginModel.data!.user!.image!,
-            //           nameProfile: state.loginModel.data!.user!.name!,
-            //           emailProfile: state.loginModel.data!.user!.email!,
-            //         )));
+            if(state.loginEntity.role ==UserType.customer){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TimeLineForUser()));
+            }else{
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TimeLineForWorker()));
+            }
+
           }else if(state is LoginErrorState){
             showToast(text: 'Login Error', state: ToastState.error);
           }
