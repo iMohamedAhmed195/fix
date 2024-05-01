@@ -1,4 +1,4 @@
-import 'package:fix/feature/login_feature/presentation/view/login_view.dart';
+import 'package:fix/feature/Onboarding_Screens/onbording.dart';
 import 'package:fix/feature/register_feature/presentation/view/register_view.dart';
 import 'package:fix/feature/verification_features/choose_email_phone_feature/presentation/view/choose_view.dart';
 import 'package:fix/feature/verification_features/forget_password_feature/presentation/view/forget_password_view.dart';
@@ -19,7 +19,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: kLogin,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         path: kForgetPassword,

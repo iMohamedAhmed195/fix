@@ -6,6 +6,7 @@ import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/core/utils/go_routes/route_names.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
 import 'package:fix/core/widget_components/custom_text_form_field.dart';
+import 'package:fix/feature/layout/Drawar.dart';
 import 'package:fix/feature/login_feature/presentation/controller/login_cubit.dart';
 import 'package:fix/feature/timeline/timeline_user/timeline_user.dart';
 import 'package:fix/feature/timeline/timeline_worker/timeline_worker.dart';
@@ -26,17 +27,13 @@ class ContainerOfTextField extends StatelessWidget {
           if(state is LoginSuccessState){
             showToast(text: 'Login Success', state: ToastState.success);
             Strings.token = state.loginEntity.token;
-            if(state.loginEntity.role ==UserType.customer){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TimeLineForUser()));
-            }else{
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TimeLineForWorker()));
-            }
+            Strings.role = state.loginEntity.role.toString();
+            Strings.name = state.loginEntity.name.toString();
+            Strings.image = state.loginEntity.photo.toString();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DrawerScreen()));
 
           }else if(state is LoginErrorState){
             showToast(text: 'Login Error', state: ToastState.error);
@@ -96,6 +93,7 @@ class ContainerOfTextField extends StatelessWidget {
 
                     CustomButton(
                       buttonName: 'Login',
+                      buttonColor: Styles.kPrimaryColor,
                       function: () {
                         if(sl<LoginCubit>().formKey.currentState!.validate()){
                           sl<LoginCubit>().logInApp();

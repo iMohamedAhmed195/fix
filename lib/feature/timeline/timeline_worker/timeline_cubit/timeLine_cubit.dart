@@ -19,7 +19,9 @@ class TimeLineCubit extends Cubit<TimeLineState> {
   SavedPostFromTimeLineModel? saved;
   void GetPosts() {
     emit(GetPostLoadingState());
-
+    print('fuckkkkk');
+    print(Strings.token);
+    print(GETPOSTS);
     sl<DioHelper>().getData(url: GETPOSTS, token: Strings.token).then((value) {
       getPost = PostModel.fromJson(value.data);
 
@@ -31,13 +33,18 @@ class TimeLineCubit extends Cubit<TimeLineState> {
 
   void goToProfilePerson(index) {
     emit(GoToProfilePersonLoadingState());
+    print('=====>');
+    print('=====>${index}');
     sl<DioHelper>().postData(
         url: GOTOPROFILEPERSON,
         data: {
-          "usId": getPost!.postData![index].userDataPost!.id
+          "usId": index
         })
         .then((value) {
+      print('=====><');
       getProfileSender= WorkerSendUser.fromJson(value.data);
+      print('=====>5<<');
+      print(getProfileSender!.data!.posts);
       emit(GoToProfilePersonSuccessState(getProfileSender));
     })
         .catchError((error) {

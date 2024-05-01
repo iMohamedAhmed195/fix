@@ -36,8 +36,11 @@ class _TimeLineForWorkerState extends State<TimeLineForWorker> {
         builder: (context, state) {
           var Cubit = TimeLineCubit.get(context);
           return RefreshIndicator(
-
-            onRefresh: _loadResources,
+            onRefresh: ()async  {
+              Future.delayed(Duration(seconds: 0),(){
+                TimeLineCubit.get(context).GetPosts();
+              });
+            },
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: SingleChildScrollView(
