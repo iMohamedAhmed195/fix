@@ -15,7 +15,7 @@ class RegisterViewBody extends StatelessWidget {
           child:  Column(
             children: [
               ImageAndTextSection(namePage: 'Join Us!',),
-              ContainerOfTextFieldForRegister()
+              RegisterOfTextFieldForRegister()
             ],
           )
       ),

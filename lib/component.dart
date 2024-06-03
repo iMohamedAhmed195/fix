@@ -1,6 +1,13 @@
 import 'dart:io';
 
+import 'package:fix/feature/chat_screen/individual_chat_screen/individual_chat.dart';
+import 'package:fix/feature/timeline/OpenPostViewFromProfileSender.dart';
+import 'package:fix/feature/timeline/timeline_worker/timeline_cubit/timeLine_cubit.dart';
+import 'package:fix/feature/timeline/timeline_worker/timeline_cubit/timeLine_states.dart';
+import 'package:fix/feature/wroker_send_user/worker_send_user.dart';
+import 'package:fix/models/WorkerSendUserModel.dart';
 import 'package:fix/models/post_model.dart';
+import 'package:fix/models/profileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +26,7 @@ PreferredSizeWidget defaultAppBar({
     AppBar(
       elevation: 0,
       titleSpacing: 20.0,
+      leading: Container(),
       title: Text(
         text,
         style: const TextStyle(
@@ -158,13 +166,20 @@ Widget myDividor2() => Container(
     );
 
 Widget PostItem(PostModel model, context, index) {
-  return SafeArea(
+  return BlocProvider(
+  create: (context) => TimeLineCubit(),
+  child: BlocConsumer<TimeLineCubit, TimeLineState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return SafeArea(
     child: Container(
-      color: Colors.white,
       width: double.infinity,
       child: Card(
+        color:Color(0xffffffff),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 50.0,
+        elevation: 20.0,
         // margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -174,7 +189,12 @@ Widget PostItem(PostModel model, context, index) {
               Row(
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      // TimeLineCubit.get(context).goToProfilePerson(model.postData![index].userDataPost!.id);
+                      // print('sssss');
+                      // print(TimeLineCubit.get(context).getProfileSender!.data!.userData!.id);
+                      navigateTo(context,  ProUser(index, model.postData![index].userDataPost!.id!));
+                    },
                     child: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 25,
@@ -233,15 +253,15 @@ Widget PostItem(PostModel model, context, index) {
                         return [
                           PopupMenuItem(
                             value: "Save",
-                            child: Text("Save"),
-                            padding: EdgeInsets.symmetric(
+                            child: const Text("Save"),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10.0),
                             onTap: () {},
                           ),
                           PopupMenuItem(
                             value: "Report",
-                            child: Text("Report"),
-                            padding: EdgeInsets.symmetric(
+                            child: const Text("Report"),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10.0),
                             onTap: () {
                               print('value');
@@ -301,7 +321,7 @@ Widget PostItem(PostModel model, context, index) {
                           onTap: () {},
                           child: GridView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index1) {
                               if (model.postData![index].image!.length <= 3) {
                                 return Padding(
@@ -338,7 +358,7 @@ Widget PostItem(PostModel model, context, index) {
                                           child: Center(
                                               child: Text(
                                             "+${model.postData![index].image!.length - 4}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.white),
                                           )),
@@ -352,7 +372,7 @@ Widget PostItem(PostModel model, context, index) {
                                 ? 4
                                 : model.postData![index].image!.length,
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2),
                           ),
                         ),
@@ -374,7 +394,9 @@ Widget PostItem(PostModel model, context, index) {
                       icon: Icons.send,
                       background: Colors.blue,
                       text: 'Send Message',
-                      function: () async {},
+                      function: () async {
+                        navigateTo(context, const IndividualChat());
+                      },
                       width: 120.0,
                       radius: 30.0,
                       height: 30.0,
@@ -388,6 +410,9 @@ Widget PostItem(PostModel model, context, index) {
       ),
     ),
   );
+  },
+),
+);
 }
 // Widget SavedItem(SavedPostsModel model, context, index) {
 //   return SafeArea(
@@ -1420,9 +1445,9 @@ Widget ColumnList() => Container(
         Container(
           height: 120,
           padding: const EdgeInsets.all(15),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Expanded(
                 //ايروور لو التسكت كبير
                 child: Text("  Mohamed Ahmed ",
@@ -1669,7 +1694,493 @@ Widget EditButton({
         ),
       ),
     );
+Widget ProfilePostWorkerItem(ProfileModel model, context, index) => SafeArea(
+      child: Container(
+        color: Colors.white,
+        width: double.infinity,
+        child: Card(
+          elevation: 50.0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 25,
+                      backgroundImage:
+                          NetworkImage(model.data!.userData!.photo!),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.userData!.name!,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.posts![index].date!,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                model.data!.posts![index].job!,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    PopupMenuButton<String>(
+                        icon: const Icon(
+                          Icons.more,
+                          color: Colors.black,
+                        ),
+                        itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              value: "Edit",
+                              child: const Text("Edit"),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              onTap: () {
+                                // TimeLineCubit.get(context).SavePost(
+                                //     postId: model.data!.posts![index].id!);
+                              },
+                            ),
+                            PopupMenuItem(
+                              value: "Delete",
+                              child: const Text("Delete"),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              onTap: () {
+                                print('value');
+                              },
+                            ),
+                          ];
+                        }),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: myDividor2(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  flex: 0,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 10.0),
+                    child: Text(
+                      model.data!.posts![index].description!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(fontSize: 14),
+                    ),
+                  ),
+                ),
+                if (model.data!.posts![index].image!.isNotEmpty)
+                  if (model.data!.posts![index].image!.length == 1)
+                    InkWell(
+                      onTap: () {
+                        // navigateTo(
+                        //     context, OpenPostFromProfileSender(index, model));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 15.0),
+                        child: Container(
+                            height: 200.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        model.data!.posts![index].image![0])))),
+                      ),
+                    ),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (model.data!.posts![index].image!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: myDividor2(),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+Widget ProfilePostUserSendWorkerItem(ProfileModel model, context, index) =>
+    SafeArea(
+      child: Container(
+        color: Colors.white,
+        width: double.infinity,
+        child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          elevation: 50.0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 25,
+                      backgroundImage:
+                          NetworkImage(model.data!.posts![index].user!.photo!),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.posts![index].user!.name!,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.posts![index].date!,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.more,
+                          size: 18,
+                        )),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: myDividor2(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 10.0),
+                  child: Text(
+                    model.data!.posts![index].description!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(fontSize: 14),
+                  ),
+                ),
+                if (model.data!.posts![index].image!.isNotEmpty)
+                  if (model.data!.posts![index].image!.length == 1)
+                    InkWell(
+                      onTap: () {
+                        navigateTo(
+                            context, OpenPostFromProfileSender(index, model));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 15.0),
+                        child: Container(
+                            height: 200.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        model.data!.posts![index].image![0])))),
+                      ),
+                    ),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (model.data!.posts![index].image!.length > 1)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: InkWell(
+                            onTap: () {
+                              navigateTo(context,
+                                  OpenPostFromProfileSender(index, model));
+                            },
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index1) {
+                                if (model.data!.posts![index].image!.length <=
+                                    3) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Image(
+                                      image: NetworkImage(
+                                          '${model.data!.posts![index].image![index1]}'),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  );
+                                } else if (model
+                                        .data!.posts![index].image!.length >
+                                    3) {
+                                  return Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              '${model.data!.posts![index].image![index1]}'),
+                                          fit: BoxFit.fitHeight,
+                                          height: double.infinity,
+                                        ),
+                                      ),
+                                      if (index1 == 3)
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Colors.black.withOpacity(0.6),
+                                            ),
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            child: Center(
+                                                child: Text(
+                                              "+${model.data!.posts![index].image!.length - 4}",
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white),
+                                            )),
+                                          ),
+                                        )
+                                    ],
+                                  );
+                                }
+                              },
+                              itemCount:
+                                  model.data!.posts![index].image!.length > 3
+                                      ? 4
+                                      : model.data!.posts![index].image!.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (model.data!.posts![index].image!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: myDividor2(),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      defaultButtonWithIcon(
+                        icon: Icons.send,
+                        background: Colors.blue,
+                        text: 'Send Message',
+                        function: () async {},
+                        width: 120.0,
+                        radius: 30.0,
+                        height: 30.0,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+Widget ProfilePostWorkerSendUserItem(WorkerSendUser model, context, index) =>
+    SafeArea(
+      child: Container(
+        width: double.infinity,
+        child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          elevation: 50.0,
 
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 25,
+                      backgroundImage:
+                      NetworkImage(model.data!.posts![index].user!.photo!),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.posts![index].user!.name!,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                model.data!.posts![index].date!,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.more,
+                          size: 18,
+                        )),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: myDividor2(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 10.0),
+                  child: Text(
+                    model.data!.posts![index].description!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(fontSize: 14),
+                  ),
+                ),
+                if (model.data!.posts![index].image !=null)
+                  if (model.data!.posts![index].image!.length == 1)
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 15.0),
+                        child: Container(
+                            height: 200.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        model.data!.posts![index].image![0])))),
+                      ),
+                    ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                if (model.data!.posts![index].image !=null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: myDividor2(),
+                  ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      defaultButtonWithIcon(
+                        icon: Icons.send,
+                        background: Colors.blue,
+                        text: 'Send Message',
+                        function: () async {
+                          navigateTo(context, const IndividualChat());
+                        },
+                        width: 120.0,
+                        radius: 30.0,
+                        height: 30.0,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
 // Widget defaultButton({
 //   double width = double.infinity,
 //   double height = 40.0,

@@ -4,6 +4,7 @@ import 'package:fix/core/services/show_toast.dart';
 import 'package:fix/core/utils/constants/colors.dart';
 import 'package:fix/core/utils/enums/user_type.dart';
 import 'package:fix/core/widget_components/custom_button.dart';
+import 'package:fix/feature/login_feature/presentation/view/login_view.dart';
 import 'package:fix/feature/register_feature/presentation/controller/register_cubit.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/address_section.dart';
 import 'package:fix/feature/register_feature/presentation/view/widget/choose_role_section.dart';
@@ -23,8 +24,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'birthday_section.dart';
 import 'password_section.dart';
 
-class ContainerOfTextFieldForRegister extends StatelessWidget {
-  const ContainerOfTextFieldForRegister({super.key});
+class RegisterOfTextFieldForRegister extends StatelessWidget {
+  const RegisterOfTextFieldForRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,10 @@ class ContainerOfTextFieldForRegister extends StatelessWidget {
         listener: (context, state) {
           if (state is RegisterSuccessState) {
             showToast(text: 'Register Success', state: ToastState.success);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LoginView()));
           } else if (state is RegisterErrorState) {
             showToast(text: state.errorMessage, state: ToastState.error);
           }

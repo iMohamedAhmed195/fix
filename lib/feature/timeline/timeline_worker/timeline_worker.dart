@@ -37,7 +37,11 @@ class _TimeLineForWorkerState extends State<TimeLineForWorker> {
           var Cubit = TimeLineCubit.get(context);
           return RefreshIndicator(
 
-            onRefresh: _loadResources,
+            onRefresh: ()async  {
+              Future.delayed(Duration(seconds: 0),(){
+                TimeLineCubit.get(context).GetPosts();
+              });
+            },
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: SingleChildScrollView(
@@ -85,7 +89,7 @@ class _TimeLineForWorkerState extends State<TimeLineForWorker> {
                                         },
                                 separatorBuilder: (context,index)=>const SizedBox(height: 10,),
                                 itemCount: Cubit.getPost!.postData!.length),
-                            const SizedBox(height: 10,),
+                            const SizedBox(height: 30,),
                           ],
                         ),
                       ),

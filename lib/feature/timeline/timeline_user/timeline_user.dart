@@ -1,4 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:fix/component.dart';
+import 'package:fix/feature/user_send_worker/user_send_worker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,7 +51,9 @@ class _TimeLineForUserState extends State<TimeLineForUser> {
           var cubit = TimeLineUserCubit.get(context);
           return Scaffold(
               body: RefreshIndicator(
-                  onRefresh: _loadResources,
+                  onRefresh: ()async{
+                     TimeLineUserCubit.get(context).GetDataWorker();
+                  },
                   child: ConditionalBuilder(
                     condition: state is GetWorkerSuccessState,
                     builder: (context) => ListView.builder(
@@ -66,8 +70,8 @@ class _TimeLineForUserState extends State<TimeLineForUser> {
                           if (scale > 1.0) scale = 1.0;
                           return InkWell(
                             onTap: (){
-                              // cubit.goToProfilePerson(cubit.getDataWorker!.data![index].id);
-                              // navigateTo(context, ProUserSendWorker(index));
+                              cubit.goToProfilePerson(cubit.getDataWorker!.data![index].id);
+                              navigateTo(context, ProUserSendWorker(index));
                             },
                             child: Opacity(
                                 opacity: opacity,

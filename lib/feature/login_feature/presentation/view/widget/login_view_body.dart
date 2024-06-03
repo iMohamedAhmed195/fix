@@ -50,7 +50,7 @@ class LoginViewBody extends StatelessWidget {
                   ],
                 ),
               ),
-              const ContainerOfTextField()
+              const LoginOfTextField()
             ],
           )),
     );
